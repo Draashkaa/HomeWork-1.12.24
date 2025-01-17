@@ -1,4 +1,5 @@
 "use client"
+import { useRef } from 'react';
 import { useState } from 'react'
 import * as types from '../../../types'
 import styles from'./countries.module.css'
@@ -8,7 +9,8 @@ export interface countriesData{
 
 export const Countries: React.FC<countriesData> = (props) => {
     const {Countries,} = {...props}
-    const i = Math.floor(Math.random()*10)
+    let i = Math.floor(Math.random()*Countries.length)
+    let L = useRef([...Countries])
     const [Country,setCountry] = useState<types.countriesData>({
         flag: Countries[i]!.flag,
         name: Countries[i]!.name,
@@ -18,16 +20,21 @@ export const Countries: React.FC<countriesData> = (props) => {
         currency: Countries[i]!.currency,
     })
     const handleClick = () => {
-        const i = Math.floor(Math.random()*10)
+        if (L.current.length == 1){
+            L.current = [...Countries]
+        }
+        let i = Math.floor(Math.random()*L.current.length)
+        console.log(L.current)
         let NextCountry: types.countriesData = {
-        flag: Countries[i]!.flag,
-        name: Countries[i]!.name,
-        capital: Countries[i]!.capital,
-        population: Countries[i]!.population,
-        languages: Countries[i]!.languages,
-        currency: Countries[i]!.currency,
-    } 
+            flag: L.current[i]!.flag,
+            name: L.current[i]!.name,
+            capital: L.current[i]!.capital,
+            population: L.current[i]!.population,
+            languages: L.current[i]!.languages,
+            currency: L.current[i]!.currency,
+        } 
         setCountry(NextCountry)
+        L.current.splice(i,1)
     };
     return (
         <main>

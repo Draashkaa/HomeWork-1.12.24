@@ -14,7 +14,6 @@ export const Buttons: React.FC<UserpageProps> = (props) => {
         const main = document.querySelector("main")
         let ActualClassMAIN = main?.getAttribute('class')
         const html = document.querySelector("html")
-        let ActualClassHTML = main?.getAttribute('class')
         if (styleConditions == true){
             html?.removeAttribute("class")
             html?.setAttribute("class", String(ActualClassMAIN?.concat('2')))
@@ -34,6 +33,7 @@ export const Buttons: React.FC<UserpageProps> = (props) => {
         <main>
             <button onClick={handleClick}  className={styles.btn}>{UserData.change}</button>
             <Link href='http://localhost:3000/countries'><button className={styles.btn}>{UserData.country}</button></Link>
+            <Link href='http://localhost:3000/ContactUs'><button className={styles.btn}>Заполнить форму</button></Link>
         </main> 
     );
 }
